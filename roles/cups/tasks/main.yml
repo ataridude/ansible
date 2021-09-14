@@ -1,0 +1,11 @@
+---
+
+- name: Install cups
+  apt:
+    name: cups
+    state: latest
+
+- name: "Add ServerAlias to CUPS config"
+  ansible.builtin.lineinfile:
+    path: /etc/cups/cupsd.conf
+    line: ServerAlias {{ cups_hostname }}

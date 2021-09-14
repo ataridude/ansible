@@ -1,0 +1,12 @@
+---
+
+- name: Install autofs package
+  apt:
+    name: autofs
+    state: latest
+  
+- name: Enable and start autofs
+  systemd:
+    name: autofs
+    state: started
+    enabled: yes

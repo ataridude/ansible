@@ -1,0 +1,19 @@
+---
+
+- name: Ensure autofs dir exists
+  file:
+    path: /etc/auto.master.d
+    state: directory
+  notify: Restart autofs
+
+- name: Copy automount file
+  template:
+    src: auto_synology.autofs.j2
+    dest: /etc/auto.master.d/auto_synology.autofs
+  notify: Restart autofs
+
+- name: Copy automount maps
+  template:
+    src: auto_synology.j2
+    dest: /etc/auto.master.d/auto_synology
+  notify: Restart autofs

@@ -1,0 +1,13 @@
+---
+
+- name: Install docker
+  apt:
+    name: docker.io
+    state: latest
+
+- name: Enable and start docker
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+

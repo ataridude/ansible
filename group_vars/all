@@ -1,0 +1,5 @@
+---
+
+nfs_host: reagan.unixdude.net
+ntp_pool: ntp.unixdude.net
+cups_hostname: cups.unixdude.net

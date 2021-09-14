@@ -1,0 +1,12 @@
+---
+
+- name: "Ensure /usr/local/sbin directory exists"
+  file:
+    path: /usr/local/sbin
+    state: directory
+
+- name: "Copy scanner startup script"
+  ansible.builtin.copy:
+    src: scanner.sh
+    dest: /usr/local/sbin/scanner.sh
+    mode: '0755'

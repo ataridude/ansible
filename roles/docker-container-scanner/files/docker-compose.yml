@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.4
+    command:
+      - --providers.file=true
+      - --providers.file.filename=/rules.yml
+      - --providers.file.watch=true
+      - "--api.insecure=true"
+      - "--providers.docker"
+      - "--entrypoints.web"
+      - "--entrypoints.web.address=:80"
+      - "--serversTransport.insecureSkipVerify=true"
+#     - "--entrypoints.web.forwardedHeaders.insecure"
+    environment:
+      # $DO_AUTH_TOKEN comes from shell environment
+      - DO_AUTH_TOKEN=$DO_AUTH_TOKEN
+      - TRAEFIK_PROVIDERS_FILE_DIRECTORY="/dynamic.config/"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./rules.yml:/rules.yml:ro
+    ports:
+      - "80:80"
+      - "8081:8080"

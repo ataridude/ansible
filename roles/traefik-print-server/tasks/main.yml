@@ -1,0 +1,24 @@
+---
+
+- name: "Ensure /usr/local/docker directory exists"
+  file:
+    path: /usr/local/docker
+    state: directory
+
+- name: "Copy traefik rules file"
+  ansible.builtin.copy:
+    src: rules.yml
+    dest: /usr/local/docker/rules.yml
+    mode: '0644'
+
+- name: "Copy traefik docker-compose file"
+  ansible.builtin.copy:
+    src: docker-compose.yml
+    dest: /usr/local/docker/docker-compose.yml
+    mode: '0644'
+
+- name: "Copy traefik cron job"
+  ansible.builtin.copy:
+    src: crontab
+    dest: /etc/cron.d/traefik
+    mode: '0644'

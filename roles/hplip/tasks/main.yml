@@ -1,0 +1,6 @@
+---
+
+- name: "Add hplip package"
+  apt:
+    name: hplip
+    state: latest

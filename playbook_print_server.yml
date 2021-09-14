@@ -1,0 +1,11 @@
+---
+
+- hosts: print_server
+  become: yes
+  roles:
+  - apt-update-upgrade
+  - common
+  - nfs_mounts
+  - cups
+  - hplip
+  - docker-container-scanner

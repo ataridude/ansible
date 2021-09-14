@@ -1,0 +1,30 @@
+http:
+  routers:
+    scanner:
+      entrypoints:
+        - "web"
+      rule: "Host(`scanner.unixdude.net`)"
+      service: scanner
+    cups:
+      entrypoints:
+        - "web"
+      rule: "Host(`cups.unixdude.net`)"
+      service: cups
+    printer:
+      entrypoints:
+        - "web"
+      rule: "Host(`printer.unixdude.net`)"
+      service: printer
+  services:
+    scanner:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.247:8080/"
+    cups:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.247:631/"
+    printer:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.4.6/"

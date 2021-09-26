@@ -1,0 +1,11 @@
+---
+
+nfs_host: reagan.unixdude.net
+ntp_pool: ntp.unixdude.net
+cups_hostname: cups.unixdude.net
+
+docker_username: "{{ vault_docker_username }}"
+docker_password: "{{ vault_docker_password }}"
+docker_email: "{{ vault_docker_email }}"
+do_auth_token: "{{ vault_do_auth_token }}"
+do_acme_email: "{{ vault_do_acme_email }}"

@@ -1,13 +1,33 @@
 ---
 
-- name: Install docker
-  apt:
-    name: docker.io
-    state: latest
+- name: Install required system packages
+  apt: name={{ item }} state=latest update_cache=yes
+  loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
 
-- name: Enable and start docker
-  systemd:
-    name: docker
-    state: started
-    enabled: yes
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+
+- name: Update apt and install docker-ce
+  apt: update_cache=yes name=docker-ce state=latest
+
+- name: "Install pip dependencies"
+  pip:
+    name:
+      - docker
+
+- name: Init a new swarm with default parameters
+  community.docker.docker_swarm:
+    state: present
+
+- name: Log into docker hub
+  docker_login:
+    username: "{{ docker_username }}"
+    password: "{{ docker_password }}"
+    email: "{{ docker_email }}"

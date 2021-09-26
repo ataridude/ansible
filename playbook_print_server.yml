@@ -1,7 +1,6 @@
 ---
 
 - hosts: print_server
-  become: yes
   roles:
   - apt-update-upgrade
   - common
@@ -9,3 +8,4 @@
   - cups
   - hplip
   - docker-container-scanner
+  become: yes

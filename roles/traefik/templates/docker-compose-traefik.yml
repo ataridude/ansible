@@ -1,0 +1,57 @@
+version: '3.8'
+  
+services:
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.4
+    # Enables the web UI and tells Traefik to listen to docker
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker"
+      #- "--providers.docker=true"
+      #- "--providers.docker.exposedbydefault=false"
+      #- "--providers.docker.network=traefik_bridge"
+      - "--entrypoints.web"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.forwardedHeaders.insecure"
+      - "--entrypoints.web-secured"
+      - "--entrypoints.web-secured.address=:443"
+      - "--entrypoints.web-secured.forwardedHeaders.insecure"
+      - "--entrypoints.web-secured.http.tls.certresolver=dns-digitalocean"
+      - "--entrypoints.web-secured.http.tls.domains[0].main=ataridude.net"
+      - "--entrypoints.web-secured.http.tls.domains[0].sans=*.ataridude.net"
+      - "--entrypoints.web-secured.http.tls.domains[1].main=unixdude.net"
+      - "--entrypoints.web-secured.http.tls.domains[1].sans=*.unixdude.net"
+      - "--entrypoints.web-secured.http.tls.domains[2].main=linuxcrypt.com"
+      - "--entrypoints.web-secured.http.tls.domains[2].sans=*.linuxcrypt.com"
+      - "--certificatesresolvers.dns-digitalocean.acme.dnschallenge=true"
+      - "--certificatesresolvers.dns-digitalocean.acme.dnschallenge.provider=digitalocean"
+      - "--certificatesresolvers.dns-digitalocean.acme.dnschallenge.delaybeforecheck=0"
+      - "--certificatesresolvers.dns-digitalocean.acme.email={{ do_acme_email }}"
+      - "--certificatesresolvers.dns-digitalocean.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.dns-digitalocean.acme.storage=/letsencrypt/acme.json"
+      - "--serverstransport.insecureskipverify=true"
+    environment:
+      # $DO_AUTH_TOKEN comes from shell environment
+      - DO_AUTH_TOKEN={{ do_auth_token }}
+      - TRAEFIK_PROVIDERS_FILE_DIRECTORY="/dynamic.config/"
+#   labels:
+#     - traefik.enable=false
+
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+      # HTTPS
+      - "443:443"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./letsencrypt:/letsencrypt
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    name: traefik

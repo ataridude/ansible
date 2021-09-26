@@ -1,0 +1,8 @@
+---
+- name: Start librespeed
+  docker_stack:
+    state: present
+    name: librespeed
+    compose:
+      - /usr/local/docker/docker-compose-librespeed.yml
+  become: yes

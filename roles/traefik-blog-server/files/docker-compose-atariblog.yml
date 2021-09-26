@@ -1,0 +1,23 @@
+version: '3.8'
+  
+services:
+  atariblog:
+    image: eagle243/private:atariblog
+    labels:
+      - "traefik.http.routers.atariblog-http.entrypoints=web"
+      - "traefik.http.routers.atariblog-http.rule=Host(`www.ataridude.net`)"
+      - "traefik.http.routers.atariblog-http.middlewares=atariblog-https"
+      - "traefik.http.middlewares.atariblog-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.atariblog-https.redirectscheme.permanent=true"
+      - "traefik.http.routers.atariblog.entrypoints=web-secured"
+      - "traefik.http.routers.atariblog.rule=Host(`www.ataridude.net`)"
+      - "traefik.http.routers.atariblog.tls=true"
+      - "traefik.http.routers.atariblog.middlewares=atariblog"
+      - "traefik.http.middlewares.atariblog.compress=true"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
+    name: traefik

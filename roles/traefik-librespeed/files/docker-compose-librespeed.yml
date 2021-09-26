@@ -1,0 +1,38 @@
+version: '3.8'
+  
+services:
+  librespeed:
+    image: ghcr.io/linuxserver/librespeed
+    container_name: librespeed
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      #- PASSWORD=PASSWORD
+      #- CUSTOM_RESULTS=false #optional
+      #- DB_TYPE=sqlite #optional
+      #- DB_NAME=DB_NAME #optional
+      #- DB_HOSTNAME=DB_HOSTNAME #optional
+      #- DB_USERNAME=DB_USERNAME #optional
+      #- DB_PASSWORD=DB_PASSWORD #optional
+      #- DB_PORT=DB_PORT #optional
+    volumes:
+      - /usr/local/docker/librespeed-config:/config
+    labels:
+      - "traefik.http.routers.librespeed-http.entrypoints=web"
+      - "traefik.http.routers.librespeed-http.rule=Host(`librespeed.unixdude.net`)"
+      - "traefik.http.routers.librespeed-http.middlewares=librespeed-https"
+      - "traefik.http.middlewares.librespeed-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.librespeed-https.redirectscheme.permanent=true"
+      - "traefik.http.routers.librespeed.entrypoints=web-secured"
+      - "traefik.http.routers.librespeed.rule=Host(`librespeed.unixdude.net`)"
+      - "traefik.http.routers.librespeed.tls=true"
+      - "traefik.http.routers.librespeed.middlewares=librespeed"
+      - "traefik.http.middlewares.librespeed.compress=true"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
+    name: traefik

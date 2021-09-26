@@ -1,0 +1,1 @@
+@reboot root    docker stack deploy atariblog --compose-file=/usr/local/docker/docker-compose-atariblog.yml --with-registry-auth

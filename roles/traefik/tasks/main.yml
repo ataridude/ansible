@@ -23,3 +23,9 @@
     dest: /etc/cron.d/traefik
     mode: '0644'
   notify: Start traefik
+
+- name: "Install pip dependencies"
+  pip:
+    name:
+      - jsondiff
+      - pyyaml

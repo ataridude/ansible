@@ -13,9 +13,3 @@
     dest: /etc/cron.d/atariblog
     mode: '0644'
   notify: Start atariblog
-
-- name: "Install pip dependencies"
-  pip:
-    name:
-      - jsondiff
-      - pyyaml

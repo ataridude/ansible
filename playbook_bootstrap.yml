@@ -1,0 +1,9 @@
+---
+
+- hosts: bootstrap
+  roles:
+  - common
+  - zerotier
+  - update_sshd_config
+  - add_users
+  - add_repos

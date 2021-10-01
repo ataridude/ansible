@@ -1,0 +1,15 @@
+---
+
+- name: Add user
+  ansible.builtin.user:
+    name: "{{ adduser }}"
+    password: "{{ adduser_passhash }}"
+    comment: "{{ adduser_gecos }}"
+    uid: 1026
+    groups: docker,sudo
+    shell: /bin/tcsh
+
+- name: Add sudo entry
+  template:
+    src: sudo.j2
+    dest: /etc/sudoers.d/{{ adduser }}

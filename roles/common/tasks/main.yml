@@ -5,21 +5,6 @@
     name: ['screen', 'tcsh', 'mlocate', 'net-tools', 'vim', 'telnet', 'pciutils', 'git', 'mtr', 'traceroute', 'ntp', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common']
     state: latest
 
-- name: Copy ntp config into place
-  template:
-    src: ntp.conf.j2
-    dest: /etc/ntp.conf
-  notify: restart ntpd
-
-- name: Enable/start ntp
-  systemd:
-    name: "{{ item }}"
-    enabled: yes
-    state: started
-  with_items:
-  - ntp
-  notify: restart ntpd
-
 - name: Set default editor
   community.general.alternatives:
     name: editor

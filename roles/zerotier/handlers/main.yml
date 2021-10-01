@@ -1,0 +1,22 @@
+---
+- name: Start zerotier
+  docker_container:
+    name: zerotier-one
+    image: zyclonite/zerotier
+    network_mode: host
+    volumes:
+      - /var/lib/zerotier-one:/var/lib/zerotier-one
+    devices:
+      - "/dev/net/tun:/dev/net/tun:rwm"
+    capabilities:
+      - NET_ADMIN
+      - SYS_ADMIN
+
+- name: Join zerotier network
+  community.docker.docker_container_exec:
+    container: zerotier-one
+    command: zerotier-cli join {{ zerotier_network }}
+  register: result
+  until: not result.rc  # or result.rc == 0 if you prefer
+  retries: 50
+  delay: 5

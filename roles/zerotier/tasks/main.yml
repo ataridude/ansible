@@ -1,0 +1,9 @@
+---
+
+- name: Copy zerotier cron job
+  ansible.builtin.copy:
+    src: crontab-zerotier
+    dest: /etc/cron.d/zerotier-cron
+  notify: 
+    - Start zerotier
+    - Join zerotier network

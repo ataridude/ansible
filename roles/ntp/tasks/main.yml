@@ -1,0 +1,16 @@
+---
+
+- name: Copy ntp config into place
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+  notify: restart ntpd
+
+- name: Enable/start ntp
+  systemd:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+  - ntp
+  notify: restart ntpd

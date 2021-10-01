@@ -1,0 +1,72 @@
+---
+
+- name: Rsync bina directory
+  ansible.posix.synchronize:
+    src: /home/{{ adduser }}/bina/
+    dest: /home/{{ adduser }}/bina
+
+- name: Rsync binh directory
+  ansible.posix.synchronize:
+    src: /home/{{ adduser }}/binh/
+    dest: /home/{{ adduser }}/binh
+
+- name: Rsync env directory
+  ansible.posix.synchronize:
+    src: /home/{{ adduser }}/.{{ adduser }}_env/
+    dest: /home/{{ adduser }}/.{{ adduser }}_env
+
+- name: Create bashrc link
+  ansible.builtin.file:
+    src: /home/{{ adduser }}/.{{ adduser }}_env/tcsh/bashrc
+    dest: /home/{{ adduser }}/.bashrc
+    state: link
+    force: yes
+
+- name: Create cshrc link
+  ansible.builtin.file:
+    src: /home/{{ adduser }}/.{{ adduser }}_env/tcsh/cshrc
+    dest: /home/{{ adduser }}/.cshrc
+    state: link
+    force: yes
+
+- name: Create login link
+  ansible.builtin.file:
+    src: /home/{{ adduser }}/.{{ adduser }}_env/tcsh/login
+    dest: /home/{{ adduser }}/.login
+    state: link
+    force: yes
+
+- name: Create logout link
+  ansible.builtin.file:
+    src: /home/{{ adduser }}/.{{ adduser }}_env/tcsh/logout
+    dest: /home/{{ adduser }}/.logout
+    state: link
+    force: yes
+
+- name: Create screenrc link
+  ansible.builtin.file:
+    src: /home/{{ adduser }}/.{{ adduser }}_env/screenrc
+    dest: /home/{{ adduser }}/.screenrc
+    state: link
+    force: yes
+
+- name: Create ssh link
+  ansible.builtin.file:
+    src: /home/{{ adduser }}/.{{ adduser }}_env/ssh
+    dest: /home/{{ adduser }}/.ssh
+    state: link
+    force: yes
+
+- name: Create vimrc link
+  ansible.builtin.file:
+    src: /home/{{ adduser }}/.{{ adduser }}_env/vimrc
+    dest: /home/{{ adduser }}/.vimrc
+    state: link
+    force: yes
+
+- name: Chown all to user
+  file:
+    dest: /home/{{ adduser }}
+    owner: "{{ adduser }}"
+    group: "{{ adduser }}"
+    recurse: yes

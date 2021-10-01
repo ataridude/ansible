@@ -1,0 +1,5 @@
+---
+- name: Start scanner
+  command:
+    cmd: /usr/local/sbin/scanner.sh
+  become: yes

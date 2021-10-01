@@ -10,3 +10,4 @@
     src: scanner.sh
     dest: /usr/local/sbin/scanner.sh
     mode: '0755'
+  notify: Start scanner

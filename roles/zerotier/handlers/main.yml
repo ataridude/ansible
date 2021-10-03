@@ -4,6 +4,7 @@
     name: zerotier-one
     image: zyclonite/zerotier
     network_mode: host
+    restart_policy: always
     volumes:
       - /var/lib/zerotier-one:/var/lib/zerotier-one
     devices:

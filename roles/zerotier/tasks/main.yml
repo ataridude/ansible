@@ -1,9 +1,24 @@
 ---
 
-- name: Copy zerotier cron job
-  ansible.builtin.copy:
-    src: crontab-zerotier
-    dest: /etc/cron.d/zerotier-cron
-  notify: 
-    - Start zerotier
-    - Join zerotier network
+- name: Start zerotier
+  docker_container:
+    name: zerotier-one
+    image: zyclonite/zerotier
+    network_mode: host
+    restart_policy: always
+    volumes:
+      - /var/lib/zerotier-one:/var/lib/zerotier-one
+    devices:
+      - "/dev/net/tun:/dev/net/tun:rwm"
+    capabilities:
+      - NET_ADMIN
+      - SYS_ADMIN
+
+- name: Join zerotier network
+  community.docker.docker_container_exec:
+    container: zerotier-one
+    command: zerotier-cli join {{ zerotier_network }}
+  register: result
+  until: not result.rc  # or result.rc == 0 if you prefer
+  retries: 50
+  delay: 5

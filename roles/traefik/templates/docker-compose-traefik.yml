@@ -1,7 +1,7 @@
 version: '3.8'
   
 services:
-  reverse-proxy:
+  traefik:
     # The official v2 Traefik docker image
     image: traefik:v2.4
     # Enables the web UI and tells Traefik to listen to docker
@@ -11,6 +11,11 @@ services:
       #- "--providers.docker=true"
       #- "--providers.docker.exposedbydefault=false"
       #- "--providers.docker.network=traefik_bridge"
+      #- "--docker.swarmmode"
+      - "--providers.docker"
+      - "--providers.docker.swarmMode"
+      #- "--providers.docker.domain=traefik"
+      - "--providers.docker.watch"
       - "--entrypoints.web"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.web.forwardedHeaders.insecure"
@@ -28,15 +33,16 @@ services:
       - "--certificatesresolvers.dns-digitalocean.acme.dnschallenge.provider=digitalocean"
       - "--certificatesresolvers.dns-digitalocean.acme.dnschallenge.delaybeforecheck=0"
       - "--certificatesresolvers.dns-digitalocean.acme.email={{ do_acme_email }}"
-      - "--certificatesresolvers.dns-digitalocean.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.dns-digitalocean.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.dns-digitalocean.acme.storage=/letsencrypt/acme.json"
       - "--serverstransport.insecureskipverify=true"
     environment:
       # $DO_AUTH_TOKEN comes from shell environment
       - DO_AUTH_TOKEN={{ do_auth_token }}
       - TRAEFIK_PROVIDERS_FILE_DIRECTORY="/dynamic.config/"
-#   labels:
-#     - traefik.enable=false
+    deploy:
+      labels:
+        - traefik.enable=false
 
     ports:
       # The HTTP port

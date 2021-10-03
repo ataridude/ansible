@@ -3,7 +3,6 @@ version: '3.8'
 services:
   librespeed:
     image: ghcr.io/linuxserver/librespeed
-    container_name: librespeed
     environment:
       - PUID=1000
       - PGID=1000
@@ -18,17 +17,22 @@ services:
       #- DB_PORT=DB_PORT #optional
     volumes:
       - /usr/local/docker/librespeed-config:/config
-    labels:
-      - "traefik.http.routers.librespeed-http.entrypoints=web"
-      - "traefik.http.routers.librespeed-http.rule=Host(`librespeed.unixdude.net`)"
-      - "traefik.http.routers.librespeed-http.middlewares=librespeed-https"
-      - "traefik.http.middlewares.librespeed-https.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.librespeed-https.redirectscheme.permanent=true"
-      - "traefik.http.routers.librespeed.entrypoints=web-secured"
-      - "traefik.http.routers.librespeed.rule=Host(`librespeed.unixdude.net`)"
-      - "traefik.http.routers.librespeed.tls=true"
-      - "traefik.http.routers.librespeed.middlewares=librespeed"
-      - "traefik.http.middlewares.librespeed.compress=true"
+    deploy:
+      labels:
+        - "traefik.http.routers.librespeed.entrypoints=web"
+        - "traefik.http.routers.librespeed.rule=Host(`librespeed.unixdude.net`)"
+        - "traefik.http.routers.librespeed.middlewares=librespeed-https"
+        - "traefik.http.routers.librespeed.service=librespeed"
+        - "traefik.http.middlewares.librespeed.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.librespeed.redirectscheme.permanent=true"
+        - "traefik.http.routers.librespeed-https.entrypoints=web-secured"
+        - "traefik.http.routers.librespeed-https.rule=Host(`librespeed.unixdude.net`)"
+        - "traefik.http.routers.librespeed-https.tls=true"
+        - "traefik.http.routers.librespeed-https.middlewares=librespeed-https"
+        - "traefik.http.routers.librespeed-https.service=librespeed"
+        - "traefik.http.middlewares.librespeed-https.compress=true"
+        - "traefik.http.services.librespeed.loadbalancer.server.port=80"
+        - "traefik.http.services.librespeed-https.loadbalancer.server.port=443"
     networks:
       - traefik
 

@@ -11,18 +11,19 @@ services:
         - "traefik.http.routers.kuma.entrypoints=http"
         - "traefik.http.routers.kuma.rule=Host(`kuma.unixdude.net`)"
         - "traefik.http.routers.kuma.service=kuma"
+        - "traefik.http.routers.kuma.middlewares=kuma"
         - "traefik.http.middlewares.kuma.redirectscheme.scheme=https"
         - "traefik.http.middlewares.kuma.redirectscheme.permanent=true"
         - "traefik.http.routers.kuma-https.entrypoints=https"
         - "traefik.http.routers.kuma-https.rule=Host(`kuma.unixdude.net`)"
+        - "traefik.http.routers.kuma-https.service=kuma"
         - "traefik.http.routers.kuma-https.tls=true"
         - "traefik.http.routers.kuma-https.middlewares=kuma-https"
-        - "traefik.http.routers.kuma-https.service=kuma"
         - "traefik.http.middlewares.kuma-https.compress=true"
         - "traefik.http.services.kuma.loadbalancer.server.port=3001"
         - "traefik.http.services.kuma-https.loadbalancer.server.port=3001"
-        - "traefik.docker.network=proxy"
         - "traefik.http.routers.kuma-https.tls.certresolver=dns-digitalocean"
+        - "traefik.docker.network=traefik_net"
     networks:
       - traefik_net
 

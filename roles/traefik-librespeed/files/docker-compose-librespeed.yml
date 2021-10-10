@@ -19,13 +19,14 @@ services:
       - /usr/local/docker/librespeed-config:/config
     deploy:
       labels:
-        - "traefik.http.routers.librespeed.entrypoints=web"
+        - "traefik.enable=true"
+        - "traefik.http.routers.librespeed.entrypoints=http"
         - "traefik.http.routers.librespeed.rule=Host(`librespeed.unixdude.net`)"
-        - "traefik.http.routers.librespeed.middlewares=librespeed-https"
+        - "traefik.http.routers.librespeed.middlewares=librespeed"
         - "traefik.http.routers.librespeed.service=librespeed"
         - "traefik.http.middlewares.librespeed.redirectscheme.scheme=https"
         - "traefik.http.middlewares.librespeed.redirectscheme.permanent=true"
-        - "traefik.http.routers.librespeed-https.entrypoints=web-secured"
+        - "traefik.http.routers.librespeed-https.entrypoints=https"
         - "traefik.http.routers.librespeed-https.rule=Host(`librespeed.unixdude.net`)"
         - "traefik.http.routers.librespeed-https.tls=true"
         - "traefik.http.routers.librespeed-https.middlewares=librespeed-https"
@@ -33,10 +34,11 @@ services:
         - "traefik.http.middlewares.librespeed-https.compress=true"
         - "traefik.http.services.librespeed.loadbalancer.server.port=80"
         - "traefik.http.services.librespeed-https.loadbalancer.server.port=443"
+        - "traefik.http.routers.librespeed-https.tls.certresolver=dns-digitalocean"
     networks:
-      - traefik
+      - traefik_net
 
 networks:
-  traefik:
+  traefik_net:
     external: true
-    name: traefik
+    name: traefik_net

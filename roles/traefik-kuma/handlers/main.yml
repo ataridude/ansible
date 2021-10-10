@@ -1,0 +1,8 @@
+---
+- name: Start kuma
+  docker_stack:
+    state: present
+    name: kuma
+    compose:
+      - /usr/local/docker/docker-compose-kuma.yml
+  become: yes

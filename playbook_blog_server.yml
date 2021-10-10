@@ -5,4 +5,5 @@
   - common
   - traefik-blog-server
   - traefik-librespeed
+  - traefik-kuma
   become: yes

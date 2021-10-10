@@ -1,0 +1,20 @@
+---
+
+- name: "Copy librespeed docker-compose file"
+  ansible.builtin.copy:
+    src: docker-compose-kuma.yml
+    dest: /usr/local/docker/docker-compose-kuma.yml
+    mode: '0644'
+  notify: Start kuma
+
+- name: "Copy traefik cron job"
+  ansible.builtin.copy:
+    src: crontab-kuma
+    dest: /etc/cron.d/kuma
+    mode: '0644'
+  notify: Start kuma
+
+- name: "Create kuma directory"
+  file:
+    path: /usr/local/docker/uptime-kuma
+    state: directory

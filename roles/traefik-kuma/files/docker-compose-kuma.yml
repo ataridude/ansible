@@ -1,0 +1,30 @@
+version: '3.8'
+  
+services:
+  kuma:
+    image: louislam/uptime-kuma:1
+    volumes:
+      - /usr/local/docker/uptime-kuma:/app/data
+    deploy:
+      labels:
+        - "traefik.http.routers.kuma.entrypoints=web"
+        - "traefik.http.routers.kuma.rule=Host(`kuma.unixdude.net`)"
+        - "traefik.http.routers.kuma.middlewares=kuma-https"
+        - "traefik.http.routers.kuma.service=kuma"
+        - "traefik.http.middlewares.kuma.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.kuma.redirectscheme.permanent=true"
+        - "traefik.http.routers.kuma-https.entrypoints=web-secured"
+        - "traefik.http.routers.kuma-https.rule=Host(`kuma.unixdude.net`)"
+        - "traefik.http.routers.kuma-https.tls=true"
+        - "traefik.http.routers.kuma-https.middlewares=kuma-https"
+        - "traefik.http.routers.kuma-https.service=kuma"
+        - "traefik.http.middlewares.kuma-https.compress=true"
+        - "traefik.http.services.kuma.loadbalancer.server.port=3001"
+        - "traefik.docker.network=proxy"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
+    name: traefik

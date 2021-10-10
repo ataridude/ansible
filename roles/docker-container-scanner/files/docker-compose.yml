@@ -16,10 +16,9 @@ services:
     environment:
       # $DO_AUTH_TOKEN comes from shell environment
       - DO_AUTH_TOKEN=$DO_AUTH_TOKEN
-      - TRAEFIK_PROVIDERS_FILE_DIRECTORY="/dynamic.config/"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./rules.yml:/rules.yml:ro
+      - /usr/local/docker/rules.yml:/rules.yml:ro
     ports:
       - "80:80"
       - "8081:8080"

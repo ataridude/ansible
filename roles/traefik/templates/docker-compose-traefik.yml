@@ -39,7 +39,6 @@ services:
     environment:
       # $DO_AUTH_TOKEN comes from shell environment
       - DO_AUTH_TOKEN={{ do_auth_token }}
-      - TRAEFIK_PROVIDERS_FILE_DIRECTORY="/dynamic.config/"
     deploy:
       labels:
         - traefik.enable=false
@@ -54,7 +53,7 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./letsencrypt:/letsencrypt
+      - /usr/local/docker/letsencrypt:/letsencrypt
     networks:
       - traefik
 

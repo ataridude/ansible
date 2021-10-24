@@ -10,4 +10,4 @@ docker container run \
     --restart unless-stopped \
     -p 8080:8080 \
     -d \
-    eagle243/scanservjs
+    unixdude/scanservjs

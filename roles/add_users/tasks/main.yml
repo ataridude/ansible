@@ -8,6 +8,7 @@
     uid: 1026
     groups: docker,sudo
     shell: /bin/tcsh
+  ignore_errors: yes
 
 - name: Add sudo entry
   template:

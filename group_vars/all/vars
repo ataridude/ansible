@@ -1,5 +1,10 @@
 ---
 
+# Define the acme CA servers and the default
+acme_caserver_prod: "acme-v02"
+acme_caserver_staging: "acme-staging-v02"
+acme_caserver: "{{ acme_caserver_staging }}"
+
 nfs_host: reagan.unixdude.net
 ntp_pool: ntp.unixdude.net
 cups_hostname: cups.unixdude.net

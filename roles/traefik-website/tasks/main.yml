@@ -1,0 +1,14 @@
+---
+
+- name: "Copy {{ website }} docker-compose file"
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "/usr/local/docker/docker-compose-{{ website }}.yml"
+    mode: '0644'
+
+- name: "Start {{ website }} docker stack"
+  docker_stack:
+    name: "{{ website }}"
+    state: present
+    compose: "/usr/local/docker/docker-compose-{{ website }}.yml"
+    with_registry_auth: yes

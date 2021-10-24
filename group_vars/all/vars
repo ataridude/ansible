@@ -9,3 +9,28 @@ docker_password: "{{ vault_docker_password }}"
 docker_email: "{{ vault_docker_email }}"
 do_auth_token: "{{ vault_do_auth_token }}"
 do_acme_email: "{{ vault_do_acme_email }}"
+
+websites:
+    atariblog:
+        image: "eagle243/private:atariblog"
+        hostname: "www.ataridude.net"
+    watchblog:
+        image: "eagle243/private:watchblog"
+        hostname: "watches.unixdude.net"
+    forsale:
+        image: "ataridude/forsale"
+        hostname: "forsale.unixdude.net"
+    librespeed:
+        image: "ghcr.io/linuxserver/librespeed"
+        hostname: "librespeed.unixdude.net"
+        environment:
+          - PUID=1000
+          - PGID=1000
+          - TZ=America/New_York
+        volumes:
+          - /usr/local/docker/librespeed-config:/config
+    kuma:
+        image: "louislam/uptime-kuma:1"
+        hostname: "kuma.unixdude.net"
+        volumes:
+          - /usr/local/docker/uptime-kuma:/app/data

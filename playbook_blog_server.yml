@@ -2,10 +2,10 @@
 
 - hosts: blog_server
   roles:
-  - common
-  - traefik-blog-server
-  - traefik-watchblog
-  - traefik-librespeed
-  - traefik-kuma
-  - traefik-forsale
+  - role: common
+  - { role: traefik-website, website: atariblog }
+  - { role: traefik-website, website: watchblog }
+  - { role: traefik-website, website: librespeed }
+  - { role: traefik-website, website: kuma }
+  - { role: traefik-website, website: forsale }
   become: yes

@@ -1,0 +1,43 @@
+version: '3.8'
+  
+services:
+  {{ website }}:
+    image: {{ websites[website]['image'] }}
+    networks:
+      - traefik_net
+{% if websites[website]['environment'] is defined %}
+    environment:
+{% for env_var in websites[website]['environment'] %}
+      - {{ env_var }}
+{% endfor %}
+{% endif %}
+{% if websites[website]['volumes'] is defined %}
+    volumes:
+{% for volume in websites[website]['volumes'] %}
+      - {{ volume }}
+{% endfor %}
+{% endif %}
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.{{ website }}-http.entrypoints=http"
+        - "traefik.http.routers.{{ website }}-http.rule=Host(`{{ websites[website]['hostname'] }}`)"
+        - "traefik.http.routers.{{ website }}-http.middlewares={{ website }}-https"
+        - "traefik.http.routers.{{ website }}-http.service={{ website }}"
+        - "traefik.http.middlewares.{{ website }}-https.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.{{ website }}-https.redirectscheme.permanent=true"
+        - "traefik.http.routers.{{ website }}.entrypoints=https"
+        - "traefik.http.routers.{{ website }}.rule=Host(`{{ websites[website]['hostname'] }}`)"
+        - "traefik.http.routers.{{ website }}.tls=true"
+        - "traefik.http.routers.{{ website }}.tls.certresolver=dns-digitalocean"
+        - "traefik.http.routers.{{ website }}.middlewares={{ website }}"
+        - "traefik.http.routers.{{ website }}.service={{ website }}"
+        - "traefik.http.middlewares.{{ website }}.compress=true"
+        - "traefik.http.services.{{ website }}-https.loadbalancer.server.port=443"
+        - "traefik.http.services.{{ website }}.loadbalancer.server.port=80"
+        - "traefik.docker.network=traefik_net"
+
+networks:
+  traefik_net:
+    external: true
+    name: traefik_net

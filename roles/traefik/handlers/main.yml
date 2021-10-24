@@ -1,8 +1,0 @@
----
-- name: Start traefik
-  docker_stack:
-    state: present
-    name: traefik
-    compose:
-      - /usr/local/docker/docker-compose-traefik.yml
-  become: yes

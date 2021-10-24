@@ -15,17 +15,17 @@
     src: docker-compose-traefik.yml
     dest: /usr/local/docker/docker-compose-traefik.yml
     mode: '0644'
-  notify: Start traefik
-
-- name: "Copy traefik cron job"
-  ansible.builtin.copy:
-    src: crontab
-    dest: /etc/cron.d/traefik
-    mode: '0644'
-  notify: Start traefik
 
 - name: "Install pip dependencies"
   pip:
     name:
       - jsondiff
       - pyyaml
+
+- name: Start traefik
+  docker_stack:
+    state: present
+    name: traefik
+    compose:
+      - /usr/local/docker/docker-compose-traefik.yml
+  become: yes

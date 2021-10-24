@@ -6,7 +6,7 @@ networks:
     attachable: true
 services:
   traefik:
-    image: traefik:v2.4
+    image: traefik:v2.5
     command:
       - --api.insecure=true
       - --entrypoints.http

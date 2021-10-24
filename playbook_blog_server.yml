@@ -4,6 +4,8 @@
   roles:
   - common
   - traefik-blog-server
+  - traefik-watchblog
   - traefik-librespeed
   - traefik-kuma
+  - traefik-forsale
   become: yes

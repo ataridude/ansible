@@ -1,0 +1,31 @@
+version: '3.8'
+  
+services:
+  forsale:
+    image: ataridude/forsale
+    networks:
+      - traefik_net
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.forsale-http.entrypoints=http"
+        - "traefik.http.routers.forsale-http.rule=Host(`forsale.unixdude.net`)"
+        - "traefik.http.routers.forsale-http.middlewares=forsale-http"
+        - "traefik.http.routers.forsale-http.service=forsale"
+        - "traefik.http.middlewares.forsale-http.redirectscheme.scheme=https"
+        - "traefik.http.middlewares.forsale-http.redirectscheme.permanent=true"
+        - "traefik.http.routers.forsale.entrypoints=https"
+        - "traefik.http.routers.forsale.rule=Host(`forsale.unixdude.net`)"
+        - "traefik.http.routers.forsale.tls=true"
+        - "traefik.http.routers.forsale.tls.certresolver=dns-digitalocean"
+        - "traefik.http.routers.forsale.middlewares=forsale"
+        - "traefik.http.routers.forsale.service=forsale"
+        - "traefik.http.middlewares.forsale.compress=true"
+        - "traefik.http.services.forsale-http.loadbalancer.server.port=80"
+        - "traefik.http.services.forsale.loadbalancer.server.port=443"
+        - "traefik.docker.network=traefik_net"
+
+networks:
+  traefik_net:
+    external: true
+    name: traefik_net

@@ -1,0 +1,15 @@
+---
+
+- name: "Copy watchblog docker-compose file"
+  ansible.builtin.copy:
+    src: docker-compose-watchblog.yml
+    dest: /usr/local/docker/docker-compose-watchblog.yml
+    mode: '0644'
+  notify: Start watchblog
+
+- name: "Copy traefik cron job"
+  ansible.builtin.copy:
+    src: crontab-watchblog
+    dest: /etc/cron.d/watchblog
+    mode: '0644'
+  notify: Start watchblog

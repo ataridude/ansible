@@ -1,0 +1,9 @@
+---
+- name: Start forsale
+  docker_stack:
+    state: present
+    name: forsale
+    compose:
+      - /usr/local/docker/docker-compose-forsale.yml
+    with_registry_auth: yes
+  become: yes

@@ -3,6 +3,7 @@
 - hosts: blog_server
   roles:
   - role: common
+  - role: minfs
   - { role: traefik-website, website: atariblog }
   - { role: traefik-website, website: watchblog }
   - { role: traefik-website, website: kuma, loadbalancer_port: 3001 }

@@ -9,6 +9,9 @@ nfs_host: reagan.unixdude.net
 ntp_pool: ntp.unixdude.net
 cups_hostname: cups.unixdude.net
 
+do_spaces_access_key: "{{ vault_do_spaces_access_key }}"
+do_spaces_secret_key: "{{ vault_do_spaces_secret_key }}"
+
 docker_username: "{{ vault_docker_username }}"
 docker_password: "{{ vault_docker_password }}"
 docker_email: "{{ vault_docker_email }}"
@@ -20,7 +23,7 @@ websites:
         image: "ataridude/atariblog:latest"
         hostname: "www.ataridude.net"
     watchblog:
-        image: "eagle243/private:watchblog"
+        image: "ataridude/watchblog:latest"
         hostname: "watches.unixdude.net"
     previous:
         image: "ataridude/previous-website"
@@ -42,3 +45,9 @@ websites:
         hostname: "kuma.unixdude.net"
         volumes:
           - /usr/local/docker/uptime-kuma:/app/data
+
+do_spaces:
+    unixdude:
+        src_url: "https://nyc3.digitaloceanspaces.com/unixdude"
+        mount_path: "/mnt/unixdude"
+        opts: "defaults,cache=/tmp/unixdude-minfs"

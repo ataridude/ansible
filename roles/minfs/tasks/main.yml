@@ -1,0 +1,38 @@
+---
+
+- name: Ensure /usr/local/sbin exists
+  file:
+    path: /usr/local/sbin
+    state: directory
+
+- name: Copy minfs binary
+  copy:
+    src: minfs
+    dest: /usr/local/sbin/minfs
+    mode: 0755
+
+- name: Create minfs directory
+  file:
+    path: /etc/minfs
+    state: directory
+
+- name: Copy minfs config file
+  template:
+    src: config.json.j2
+    dest: /etc/minfs/config.json
+
+- name: Create destination directory
+  file:
+    path: /mnt/unixdude
+    state: directory
+
+- name: Add Mount Points
+  mount:
+    path: "{{ item.value.mount_path }}"
+    src:  "{{ item.value.src_url }}"
+    fstype: "minfs"
+    opts: "{{ item.value.opts }}"
+    boot: yes
+    state: mounted
+  with_dict:
+  - "{{ do_spaces }}"

@@ -1,9 +1,0 @@
----
-- name: Start watchblog
-  docker_stack:
-    state: present
-    name: watchblog
-    compose:
-      - /usr/local/docker/docker-compose-watchblog.yml
-    with_registry_auth: yes
-  become: yes

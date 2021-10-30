@@ -1,1 +1,0 @@
-@reboot root    docker stack deploy librespeed --compose-file=/usr/local/docker/docker-compose-librespeed.yml

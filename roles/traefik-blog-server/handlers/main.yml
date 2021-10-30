@@ -1,9 +1,0 @@
----
-- name: Start atariblog
-  docker_stack:
-    state: present
-    name: atariblog
-    compose:
-      - /usr/local/docker/docker-compose-atariblog.yml
-    with_registry_auth: yes
-  become: yes

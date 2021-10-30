@@ -5,7 +5,7 @@
   - role: common
   - { role: traefik-website, website: atariblog }
   - { role: traefik-website, website: watchblog }
-  - { role: traefik-website, website: librespeed }
   - { role: traefik-website, website: kuma, loadbalancer_port: 3001 }
   - { role: traefik-website, website: forsale }
+  - { role: traefik-website, website: previous }
   become: yes

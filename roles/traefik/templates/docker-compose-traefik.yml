@@ -41,6 +41,9 @@ services:
       - type: bind
         source: /usr/local/docker/letsencrypt
         target: /letsencrypt
+      - type: bind
+        source: /usr/local/docker/htpasswd.podcasts
+        target: /htpasswd.podcasts
     ports:
       - target: 80
         published: 80

@@ -1,0 +1,5 @@
+---
+
+- name: Fix DNS resolver
+  include_tasks: "fix_dns_resolver.yml"
+  when: home_dns_fix is defined and home_dns_fix | bool

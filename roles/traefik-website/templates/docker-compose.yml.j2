@@ -14,7 +14,7 @@ services:
 {% if websites[website]['volumes'] is defined %}
     volumes:
 {% for volume in websites[website]['volumes'] %}
-      - {{ volume }}
+      - {{ websites[website]['volumes'][volume].src }}:{{ websites[website]['volumes'][volume].dest }}
 {% endfor %}
 {% endif %}
     deploy:
@@ -30,9 +30,19 @@ services:
         - "traefik.http.routers.{{ website }}.rule=Host(`{{ websites[website]['hostname'] }}`)"
         - "traefik.http.routers.{{ website }}.tls=true"
         - "traefik.http.routers.{{ website }}.tls.certresolver=dns-digitalocean"
-        - "traefik.http.routers.{{ website }}.middlewares={{ website }}"
         - "traefik.http.routers.{{ website }}.service={{ website }}"
+{% if website == 'podcasts' %}
+        - "traefik.http.routers.{{ website }}.middlewares={{ website }},compress"
+        - "traefik.http.middlewares.{{ website }}.basicauth.usersfile=/htpasswd.{{ website }}"
+        - "traefik.http.middlewares.compress.compress=true"
+{% elif websites[website]['redirect'] is defined %}
+        - "traefik.http.routers.{{ website }}.middlewares={{ website }}"
+        - "traefik.http.middlewares.{{ website }}.redirectregex.regex=^http(.*)"
+        - "traefik.http.middlewares.{{ website }}.redirectregex.replacement=http://{{ websites[website]['redirect'] }}"
+{% else %}
+        - "traefik.http.routers.{{ website }}.middlewares={{ website }}"
         - "traefik.http.middlewares.{{ website }}.compress=true"
+{% endif %}
         - "traefik.http.services.{{ website }}-https.loadbalancer.server.port={{ loadbalancer_port }}"
         - "traefik.http.services.{{ website }}.loadbalancer.server.port={{ loadbalancer_port }}"
         - "traefik.docker.network=traefik_net"

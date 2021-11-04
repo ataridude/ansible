@@ -1,5 +1,12 @@
 ---
 
+- name: "Create directories for {{ website }}"
+  file:
+    path: "{{ item.value.src }}"
+    state: directory
+  loop: "{{ websites[website]['volumes'] | dict2items }}"
+  when: websites[website]['volumes'] is defined
+
 - name: "Copy {{ website }} docker-compose file"
   ansible.builtin.template:
     src: docker-compose.yml.j2
@@ -12,3 +19,9 @@
     state: present
     compose: "/usr/local/docker/docker-compose-{{ website }}.yml"
     with_registry_auth: yes
+
+- name: "Copy {{ website }} htpasswd file"
+  template:
+    src: htpasswd.j2
+    dest: "/usr/local/docker/htpasswd.{{ website }}"
+  when: websites[website]['users'] is defined

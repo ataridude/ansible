@@ -1,0 +1,25 @@
+---
+
+- name: Set nsswitch
+  lineinfile:
+    path: /etc/nsswitch.conf
+    regexp: "^hosts"
+    line: "hosts: files mdns4_minimal dns [NOTFOUND=return] resolve [!UNAVAIL=return] dns"
+
+- name: Get stat of /etc/resolv.conf
+  ansible.builtin.stat:
+    path: /etc/resolv.conf
+  register: sym
+
+- name: Remove /etc/resolv.conf symlink
+  file:
+    path: /etc/resolv.conf
+    state: absent
+  when: sym.stat.islnk is defined and sym.stat.islnk
+
+- name: Set /etc/resolv.conf
+  lineinfile:
+    path: /etc/resolv.conf
+    create: yes
+    regexp: "^nameserver"
+    line: "nameserver 1.1.1.1"

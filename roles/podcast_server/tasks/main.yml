@@ -1,0 +1,20 @@
+---
+
+- name: Create podcast_rsync user
+  ansible.builtin.user:
+    name: "podcast_rsync"
+    shell: /bin/tcsh
+  ignore_errors: yes
+
+- name: Create podcast_user ssh dir
+  file:
+    path: /home/podcast_rsync/.ssh
+    state: directory
+    owner: podcast_rsync
+
+- name: Copy podcast_user ssh key
+  copy:
+    src: podcast_rsync.ssh.pub
+    dest: /home/podcast_rsync/.ssh/id_rsa.pub
+    owner: podcast_rsync
+    mode: 0600

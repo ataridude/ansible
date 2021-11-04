@@ -22,14 +22,27 @@
     name:
       - docker
 
-- name: Init a new swarm with default parameters
+- name: Init a new swarm with default parameters (not home)
   community.docker.docker_swarm:
     advertise_addr: "{{ ansible_eth0.ipv4.address }}"
     state: present
   ignore_errors: yes
+  when: home_dns_fix is not defined or home_dns_fix == "False"
+
+- name: Init a new swarm with default parameters (home)
+  community.docker.docker_swarm:
+    state: present
+  ignore_errors: yes
+  when: home_dns_fix is defined or not home_dns_fix | bool
 
 - name: Log into docker hub
   docker_login:
     username: "{{ docker_username }}"
     password: "{{ docker_password }}"
     email: "{{ docker_email }}"
+
+- name: Add user to docker group
+  user:
+    name: "{{ adduser }}"
+    groups: docker
+    append: yes

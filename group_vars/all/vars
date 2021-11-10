@@ -87,6 +87,10 @@ websites:
     unixdude:
         image: "ataridude/unixdude.net:latest"
         hostname: "www.unixdude.net"
+    watches_redir:
+        image: "containous/whoami"
+        hostname: "watches.unixdude.net"
+        redirect: "funstuff.unixdude.net"
 
 do_spaces:
     unixdude:

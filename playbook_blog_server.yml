@@ -17,4 +17,5 @@
   - { role: traefik-website, website: previous                      }
   - { role: traefik-website, website: roundcube                     }
   - { role: traefik-website, website: unixdude                      }
+  - { role: traefik-website, website: watches_redir                 }
   become: yes

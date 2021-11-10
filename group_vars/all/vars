@@ -25,6 +25,9 @@ websites:
     forsale:
         image: "ataridude/forsale"
         hostname: "forsale.unixdude.net"
+    funstuff:
+        image: "ataridude/funstuff:latest"
+        hostname: "funstuff.unixdude.net"
     kuma:
         image: "louislam/uptime-kuma:1"
         hostname: "kuma.unixdude.net"
@@ -84,9 +87,6 @@ websites:
     unixdude:
         image: "ataridude/unixdude.net:latest"
         hostname: "www.unixdude.net"
-    watchblog:
-        image: "ataridude/watchblog:latest"
-        hostname: "watches.unixdude.net"
 
 do_spaces:
     unixdude:

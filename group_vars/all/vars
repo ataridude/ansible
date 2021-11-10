@@ -43,9 +43,13 @@ websites:
           librespeed:
             src: /usr/local/docker/librespeed-config
             dest: /config
-    linuxcrypt:
+    linuxcrypt_www:
         image: "containous/whoami"
         hostname: "www.linuxcrypt.com"
+        redirect: "www.unixdude.net"
+    linuxcrypt:
+        image: "containous/whoami"
+        hostname: "linuxcrypt.com"
         redirect: "www.unixdude.net"
     podcasts:
         image: "ataridude/podcasts"
@@ -58,7 +62,7 @@ websites:
 #           src: /usr/local/docker/htpasswd.podcasts
 #           dest: /var/www/htpasswd
         users:
-          - unixdude:$apr1$wMd/Jhav$833B6IjZ6SnPYEmOJpXUu/
+          - "{{ adduser }}:{{ adduser_htpasswd }}"
     previous:
         image: "ataridude/previous-website"
         hostname: "previous.unixdude.net"
@@ -77,6 +81,9 @@ websites:
           db:
             src: /usr/local/docker/roundcube/db/sqlite
             dest: /var/roundcube/db
+    unixdude:
+        image: "ataridude/unixdude.net:latest"
+        hostname: "www.unixdude.net"
     watchblog:
         image: "ataridude/watchblog:latest"
         hostname: "watches.unixdude.net"

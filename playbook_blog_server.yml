@@ -6,12 +6,15 @@
   - role: podcast_server
   - role: fix_dns_resolver
 # - role: minfs
+# - role: traefik-nextcloud
   - { role: traefik-website, website: atariblog                     }
   - { role: traefik-website, website: forsale                       }
   - { role: traefik-website, website: kuma, loadbalancer_port: 3001 }
   - { role: traefik-website, website: linuxcrypt                    }
+  - { role: traefik-website, website: linuxcrypt_www                }
   - { role: traefik-website, website: podcasts                      }
   - { role: traefik-website, website: previous                      }
   - { role: traefik-website, website: roundcube                     }
+  - { role: traefik-website, website: unixdude                      }
   - { role: traefik-website, website: watchblog                     }
   become: yes

@@ -13,7 +13,7 @@
   - { role: traefik-website, website: kuma, loadbalancer_port: 3001 }
   - { role: traefik-website, website: linuxcrypt                    }
   - { role: traefik-website, website: linuxcrypt_www                }
-  - { role: traefik-website, website: podcasts                      }
+  - { role: traefik-website, website: podcast_server                }
   - { role: traefik-website, website: previous                      }
   - { role: traefik-website, website: roundcube                     }
   - { role: traefik-website, website: unixdude                      }

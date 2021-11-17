@@ -26,7 +26,7 @@ websites:
         image: "ataridude/forsale"
         hostname: "forsale.unixdude.net"
     funstuff:
-        image: "ataridude/funstuff:20211113"
+        image: "ataridude/funstuff:20211115"
         hostname: "funstuff.unixdude.net"
     kuma:
         image: "louislam/uptime-kuma:1"

@@ -18,26 +18,42 @@ docker_email: "{{ vault_docker_email }}"
 do_auth_token: "{{ vault_do_auth_token }}"
 do_acme_email: "{{ vault_do_acme_email }}"
 
+hostname_atariblog: "www-dev.ataridude.net"
+hostname_atariblog_redir: "ataridude.net"
+hostname_forsale: "forsale-dev.unixdude.net"
+hostname_funstuff: "funstuff-dev.unixdude.net"
+hostname_kuma: "kuma-dev.unixdude.net"
+hostname_librespeed: "librespeed-dev.unixdude.net"
+hostname_podcasts: "podcasts-dev.unixdude.net"
+hostname_previous: "previous-dev.unixdude.net"
+hostname_roundcube: "roundcube-dev.unixdude.net"
+hostname_unixdude_www: "www-dev.unixdude.net"
+hostname_unixdude_redir: "unixdude.net"
+
 websites:
     atariblog:
         image: "ataridude/atariblog:latest"
-        hostname: "www.ataridude.net"
+        hostname: "{{ hostname_atariblog }}"
+    atari_redir:
+        image: "containous/whoami"
+        hostname: "{{ hostname_atariblog_redir }}"
+        redirect: "{{ hostname_atariblog }}"
     forsale:
         image: "ataridude/forsale"
-        hostname: "forsale.unixdude.net"
+        hostname: "{{ hostname_forsale }}"
     funstuff:
         image: "ataridude/funstuff:20211115"
-        hostname: "funstuff.unixdude.net"
+        hostname: "{{ hostname_funstuff }}"
     kuma:
         image: "louislam/uptime-kuma:1"
-        hostname: "kuma.unixdude.net"
+        hostname: "{{ hostname_kuma }}"
         volumes:
           kuma:
             src: /usr/local/docker/uptime-kuma
             dest: /app/data
     librespeed:
         image: "ghcr.io/linuxserver/librespeed"
-        hostname: "librespeed.unixdude.net"
+        hostname: "{{ hostname_librespeed }}"
         environment:
           - PUID=1000
           - PGID=1000
@@ -49,14 +65,14 @@ websites:
     linuxcrypt_www:
         image: "containous/whoami"
         hostname: "www.linuxcrypt.com"
-        redirect: "www.unixdude.net"
+        redirect: "{{ hostname_unixdude_www }}"
     linuxcrypt:
         image: "containous/whoami"
         hostname: "linuxcrypt.com"
-        redirect: "www.unixdude.net"
+        redirect: "{{ hostname_unixdude_www }}"
     podcast_server:
         image: "ataridude/podcast_server"
-        hostname: "podcasts.unixdude.net"
+        hostname: "{{ hostname_podcasts }}"
         volumes:
           Audio:
             src: /usr/local/docker/podcasts/Audio
@@ -68,10 +84,10 @@ websites:
           - "{{ adduser }}:{{ adduser_htpasswd }}"
     previous:
         image: "ataridude/previous-website"
-        hostname: "previous.unixdude.net"
+        hostname: "{{ hostname_previous }}"
     roundcube:
         image: "roundcube/roundcubemail"
-        hostname: "roundcube.unixdude.net"
+        hostname: "{{ hostname_roundcube }}"
         environment:
             - ROUNDCUBEMAIL_DEFAULT_HOST=ssl://mail.unixdude.net
             - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail.unixdude.net
@@ -86,11 +102,15 @@ websites:
             dest: /var/roundcube/db
     unixdude:
         image: "ataridude/unixdude.net:latest"
-        hostname: "www.unixdude.net"
+        hostname: "{{ hostname_unixdude_www }}"
+    unixdude_redir:
+        image: "containous/whoami"
+        hostname: "{{ hostname_unixdude_redir }}"
+        redirect: "{{ hostname_unixdude_www }}"
     watches_redir:
         image: "containous/whoami"
         hostname: "watches.unixdude.net"
-        redirect: "funstuff.unixdude.net"
+        redirect: "{{ hostname_funstuff }}"
 
 do_spaces:
     unixdude:

@@ -2,3 +2,12 @@
 
 acme_caserver: "{{ acme_caserver_prod }}"
 
+hostname_atariblog: "www.ataridude.net"
+hostname_forsale: "forsale.unixdude.net"
+hostname_funstuff: "funstuff.unixdude.net"
+hostname_kuma: "kuma.unixdude.net"
+hostname_librespeed: "librespeed.unixdude.net"
+hostname_podcasts: "podcasts.unixdude.net"
+hostname_previous: "previous.unixdude.net"
+hostname_roundcube: "roundcube.unixdude.net"
+hostname_unixdude_www: "www.unixdude.net"

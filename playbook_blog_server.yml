@@ -6,8 +6,9 @@
   - role: podcast_server
   - role: fix_dns_resolver
 # - role: minfs
-# - role: traefik-nextcloud
+  - role: traefik-nextcloud
   - { role: traefik-website, website: atariblog                     }
+  - { role: traefik-website, website: atari_redir                   }
   - { role: traefik-website, website: forsale                       }
   - { role: traefik-website, website: funstuff                      }
   - { role: traefik-website, website: kuma, loadbalancer_port: 3001 }

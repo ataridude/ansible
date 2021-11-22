@@ -22,6 +22,10 @@
       - jsondiff
       - pyyaml
 
+- name: Set up dynamic config
+  include_tasks: "copy_traefik_config_file.yml"
+  when: publish_traefik is defined and publish_traefik | bool
+
 - name: Start traefik
   docker_stack:
     state: present

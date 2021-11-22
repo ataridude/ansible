@@ -1,0 +1,12 @@
+---
+
+- name: "Ensure /usr/local/docker directory exists"
+  file:
+    path: /usr/local/docker/dynamic.config
+    state: directory
+
+- name: "Copy config file"
+  ansible.builtin.template:
+    src: dynamic-config.yaml
+    dest: /usr/local/docker/dynamic.config/traefik.yaml
+    mode: '0644'

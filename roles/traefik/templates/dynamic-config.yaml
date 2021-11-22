@@ -1,0 +1,25 @@
+http:
+  routers:
+    dashboard:
+#     entrypoint: https
+      rule: Host(`{{ hostname_traefik }}`)
+      service: api@internal
+      middlewares:
+        - auth
+#   dashboard-ssl:
+#     entrypoint: https
+#     rule: Host(`traefik.unixdude.net`)
+#     service: api@internal
+#     tls: true
+#     tls:
+#       certresolver:
+#         dns-digitalocean
+  middlewares:
+#   dashboard-https:
+#     redirectscheme:
+#       scheme: https
+#       permanent: true
+    auth:
+      basicAuth:
+        realm: "{{ traefik_realm }}"
+        usersFile: /htpasswd.podcasts

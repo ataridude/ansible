@@ -1,5 +1,8 @@
 ---
 
+publish_traefik: "no"
+traefik_realm: "unixdude.net"
+
 # Define the acme CA servers and the default
 acme_caserver_prod: "acme-v02"
 acme_caserver_staging: "acme-staging-v02"
@@ -27,6 +30,7 @@ hostname_librespeed: "librespeed-dev.unixdude.net"
 hostname_podcasts: "podcasts-dev.unixdude.net"
 hostname_previous: "previous-dev.unixdude.net"
 hostname_roundcube: "roundcube-dev.unixdude.net"
+hostname_traefik: "traefik-dev.unixdude.net"
 hostname_unixdude_www: "www-dev.unixdude.net"
 hostname_unixdude_redir: "unixdude.net"
 

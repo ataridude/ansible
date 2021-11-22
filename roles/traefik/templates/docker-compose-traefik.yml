@@ -7,32 +7,40 @@ networks:
 services:
   traefik:
     image: traefik:v2.5
-    command:
-      - --api.insecure=true
-      - --entrypoints.http
-      - --entrypoints.http.address=:80
-      - --entrypoints.https
-      - --entrypoints.https.address=:443
-      - --entrypoints.http.forwardedHeaders.insecure
-      - --entrypoints.https.forwardedHeaders.insecure
-      - --log
-      - --log.format=json
-      - --log.level=info
-      - --ping
-      - --ping.entrypoint=traefik
-      - --providers.docker=true
-      - --providers.docker.exposedbydefault=false
-      - --providers.docker.network=traefik_net
-      - --providers.docker.swarmMode=true
-      - --providers.docker.watch=true
-      - --entrypoints.https.http.tls.certresolver=dns-digitalocean
-      - --certificatesresolvers.dns-digitalocean.acme.dnschallenge=true
-      - --certificatesresolvers.dns-digitalocean.acme.dnschallenge.provider=digitalocean
-      - --certificatesresolvers.dns-digitalocean.acme.dnschallenge.delaybeforecheck=0
-      - --certificatesresolvers.dns-digitalocean.acme.email={{ do_acme_email }}
-      - --certificatesresolvers.dns-digitalocean.acme.caserver=https://{{ acme_caserver }}.api.letsencrypt.org/directory
-      - --certificatesresolvers.dns-digitalocean.acme.storage=/letsencrypt/acme.json
-      - --serverstransport.insecureskipverify=true
+    command: >
+      --api.insecure=true
+      --entrypoints.http
+      --entrypoints.http.address=:80
+      --entrypoints.https
+      --entrypoints.https.address=:443
+      --entrypoints.http.forwardedHeaders.insecure
+      --entrypoints.https.forwardedHeaders.insecure
+{% if publish_traefik == "yes" %}
+      --entrypoints.http.http.redirections.entryPoint.to=https
+      --entrypoints.http.http.redirections.entryPoint.scheme=https
+{% endif %}
+      --log
+      --log.format=json
+      --log.level=info
+      --ping
+      --ping.entrypoint=traefik
+      --providers.docker=true
+      --providers.docker.exposedbydefault=false
+      --providers.docker.network=traefik_net
+      --providers.docker.swarmMode=true
+      --providers.docker.watch=true
+{% if publish_traefik == "yes" %}
+      --providers.file.directory=/dynamic.config
+      --providers.file.watch=true
+{% endif %}
+      --entrypoints.https.http.tls.certresolver=dns-digitalocean
+      --certificatesresolvers.dns-digitalocean.acme.dnschallenge=true
+      --certificatesresolvers.dns-digitalocean.acme.dnschallenge.provider=digitalocean
+      --certificatesresolvers.dns-digitalocean.acme.dnschallenge.delaybeforecheck=0
+      --certificatesresolvers.dns-digitalocean.acme.email={{ do_acme_email }}
+      --certificatesresolvers.dns-digitalocean.acme.caserver=https://{{ acme_caserver }}.api.letsencrypt.org/directory
+      --certificatesresolvers.dns-digitalocean.acme.storage=/letsencrypt/acme.json
+      --serverstransport.insecureskipverify=true
     volumes:
       - type: bind
         source: /var/run/docker.sock
@@ -44,6 +52,11 @@ services:
       - type: bind
         source: /usr/local/docker/htpasswd.podcasts
         target: /htpasswd.podcasts
+{% if publish_traefik == "yes" %}
+      - type: bind
+        source: /usr/local/docker/dynamic.config
+        target: /dynamic.config
+{% endif %}
     ports:
       - target: 80
         published: 80
@@ -53,10 +66,12 @@ services:
         published: 443
         protocol: tcp
         mode: host
+{% if publish_traefik == "no" %}
       - target: 8080
         published: 8080
         protocol: tcp
         mode: host
+{% endif %}
     environment:
       # $DO_AUTH_TOKEN comes from shell environment
       - DO_AUTH_TOKEN={{ do_auth_token }}
@@ -76,5 +91,13 @@ services:
         order: stop-first
       labels:
         - traefik.enable=false
+{% if publish_traefik == "yes" %}
+        - "traefik.http.routers.traefik.rule=Host(`{{ hostname_traefik }}`)" # domain for dashboard
+        - "traefik.http.routers.traefik.entrypoints=https"
+        - "traefik.http.routers.traefik.tls.certresolver=dns-digitalocean"
+        - "traefik.http.routers.traefik.service=api@internal" # points to dashboard
+        - "traefik.http.routers.traefik.middlewares=auth" # enable password auth
+        - "traefik.http.middlewares.auth.basicauth.usersfile=/htpasswd.podcasts"
+{% endif %}
     networks:
       - traefik_net

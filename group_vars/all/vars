@@ -42,6 +42,14 @@ websites:
         image: "containous/whoami"
         hostname: "{{ hostname_atariblog_redir }}"
         redirect: "{{ hostname_atariblog }}"
+    calendar_redir:
+        image: "containous/whoami"
+        hostname: "calendar.unixdude.net"
+        redirect: "cloud.unixdude.net/apps/calendar/"
+    contacts_redir:
+        image: "containous/whoami"
+        hostname: "contacts.unixdude.net"
+        redirect: "cloud.unixdude.net/apps/contacts/"
     forsale:
         image: "ataridude/forsale"
         hostname: "{{ hostname_forsale }}"

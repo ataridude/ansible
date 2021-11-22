@@ -38,7 +38,7 @@ services:
 {% elif websites[website]['redirect'] is defined %}
         - "traefik.http.routers.{{ website }}.middlewares={{ website }}"
         - "traefik.http.middlewares.{{ website }}.redirectregex.regex=^http(.*)"
-        - "traefik.http.middlewares.{{ website }}.redirectregex.replacement=http://{{ websites[website]['redirect'] }}"
+        - "traefik.http.middlewares.{{ website }}.redirectregex.replacement=https://{{ websites[website]['redirect'] }}"
 {% else %}
         - "traefik.http.routers.{{ website }}.middlewares={{ website }}"
         - "traefik.http.middlewares.{{ website }}.compress=true"

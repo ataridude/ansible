@@ -16,6 +16,9 @@ services:
 {% for volume in websites[website]['volumes'] %}
       - {{ websites[website]['volumes'][volume].src }}:{{ websites[website]['volumes'][volume].dest }}
 {% endfor %}
+{% if website == 'podcasts' %}
+      - /usr/local/docker/htpasswd.podcasts:/var/www/htpasswd
+{% endif %}
 {% endif %}
     deploy:
       labels:

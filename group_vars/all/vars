@@ -54,7 +54,7 @@ websites:
         image: "ataridude/forsale"
         hostname: "{{ hostname_forsale }}"
     funstuff:
-        image: "ataridude/funstuff:20211201"
+        image: "ataridude/funstuff:20211222"
         hostname: "{{ hostname_funstuff }}"
     kuma:
         image: "louislam/uptime-kuma:1"
@@ -113,7 +113,7 @@ websites:
             src: /usr/local/docker/roundcube/db/sqlite
             dest: /var/roundcube/db
     unixdude:
-        image: "ataridude/unixdude.net:20211127"
+        image: "ataridude/unixdude.net:20211222"
         hostname: "{{ hostname_unixdude_www }}"
     unixdude_redir:
         image: "containous/whoami"

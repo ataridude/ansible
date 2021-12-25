@@ -1,0 +1,7 @@
+---
+
+- hosts: kuma_home
+  roles:
+  - role: common
+  - { role: traefik-website, website: kuma, loadbalancer_port: 3001 }
+  become: yes

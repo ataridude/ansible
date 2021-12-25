@@ -1,0 +1,5 @@
+---
+
+acme_caserver: "{{ acme_caserver_prod }}"
+
+hostname_kuma: "kuma-home.unixdude.net"

@@ -49,10 +49,10 @@ services:
       - type: bind
         source: /usr/local/docker/letsencrypt
         target: /letsencrypt
-{% if publish_traefik == "yes" %}
       - type: bind
         source: /usr/local/docker/htpasswd.podcasts
         target: /htpasswd.podcasts
+{% if publish_traefik == "yes" %}
       - type: bind
         source: /usr/local/docker/dynamic.config
         target: /dynamic.config

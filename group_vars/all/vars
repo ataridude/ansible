@@ -82,8 +82,8 @@ websites:
         image: "containous/whoami"
         hostname: "linuxcrypt.com"
         redirect: "{{ hostname_unixdude_www }}"
-    podcast_server:
-        image: "ataridude/podcast_server"
+    podcasts:
+        image: "ataridude/podcast_server:20220101"
         hostname: "{{ hostname_podcasts }}"
         volumes:
           Audio:

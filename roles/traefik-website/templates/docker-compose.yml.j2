@@ -17,7 +17,8 @@ services:
       - {{ websites[website]['volumes'][volume].src }}:{{ websites[website]['volumes'][volume].dest }}
 {% endfor %}
 {% if website == 'podcasts' %}
-      - /usr/local/docker/htpasswd.podcasts:/var/www/htpasswd
+      - /usr/local/docker/htpasswd.podcasts:/htpasswd.podcasts
+      - /usr/local/docker/podcasts/podcasts.txt:/var/www/html/podcasts.txt
 {% endif %}
 {% endif %}
     deploy:

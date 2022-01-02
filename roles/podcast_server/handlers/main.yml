@@ -1,0 +1,8 @@
+---
+- name: restart podcast server
+  docker_stack:
+    name: "podcasts"
+    state: present
+    restarted: true
+    compose: "/usr/local/docker/docker-compose-podcasts.yml"
+    with_registry_auth: yes

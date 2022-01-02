@@ -18,3 +18,9 @@
     dest: /home/podcast_rsync/.ssh/id_rsa.pub
     owner: podcast_rsync
     mode: 0600
+
+- name: Copy podcasts.txt file
+  copy:
+    src: podcasts.txt
+    dest: /usr/local/docker/podcasts/podcasts.txt
+  notify: restart podcast server

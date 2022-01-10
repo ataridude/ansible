@@ -95,7 +95,7 @@ websites:
         users:
           - "{{ adduser }}:{{ adduser_htpasswd }}"
     previous:
-        image: "ataridude/previous-website"
+        image: "ataridude/previous-website:20220110"
         hostname: "{{ hostname_previous }}"
     roundcube:
         image: "roundcube/roundcubemail"
@@ -113,7 +113,7 @@ websites:
             src: /usr/local/docker/roundcube/db/sqlite
             dest: /var/roundcube/db
     unixdude:
-        image: "ataridude/unixdude.net:20220103"
+        image: "ataridude/unixdude.net:20220104"
         hostname: "{{ hostname_unixdude_www }}"
     unixdude_redir:
         image: "containous/whoami"

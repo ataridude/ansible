@@ -12,3 +12,103 @@ hostname_previous: "previous.unixdude.net"
 hostname_roundcube: "roundcube.unixdude.net"
 hostname_traefik: "traefik.unixdude.net"
 hostname_unixdude_www: "www.unixdude.net"
+
+websites:
+    atariblog:
+        image: "ataridude/atariblog:latest"
+        hostname: "{{ hostname_atariblog }}"
+    atari_redir:
+        image: "containous/whoami"
+        hostname: "{{ hostname_atariblog_redir }}"
+        redirect: "{{ hostname_atariblog }}"
+    calendar_redir:
+        image: "containous/whoami"
+        hostname: "calendar.unixdude.net"
+        redirect: "cloud.unixdude.net/apps/calendar/"
+    contacts_redir:
+        image: "containous/whoami"
+        hostname: "contacts.unixdude.net"
+        redirect: "cloud.unixdude.net/apps/contacts/"
+    forsale:
+        image: "ataridude/forsale"
+        hostname: "{{ hostname_forsale }}"
+    funstuff:
+        image: "ataridude/funstuff:20211222"
+        hostname: "{{ hostname_funstuff }}"
+    kuma:
+        image: "louislam/uptime-kuma:1"
+        hostname: "{{ hostname_kuma }}"
+        volumes:
+          kuma:
+            src: /usr/local/docker/uptime-kuma
+            dest: /app/data
+    librespeed:
+        image: "ghcr.io/linuxserver/librespeed"
+        hostname: "{{ hostname_librespeed }}"
+        environment:
+          - PUID=1000
+          - PGID=1000
+          - TZ=America/New_York
+        volumes:
+          librespeed:
+            src: /usr/local/docker/librespeed-config
+            dest: /config
+    linuxcrypt_www:
+        image: "containous/whoami"
+        hostname: "www.linuxcrypt.com"
+        redirect: "{{ hostname_unixdude_www }}"
+    linuxcrypt:
+        image: "containous/whoami"
+        hostname: "linuxcrypt.com"
+        redirect: "{{ hostname_unixdude_www }}"
+    podcasts:
+        image: "ataridude/podcast_server:20220101"
+        hostname: "{{ hostname_podcasts }}"
+        volumes:
+          Audio:
+            src: /usr/local/docker/podcasts/Audio
+            dest: /var/www/html/Audio
+#         htpasswd:
+#           src: /usr/local/docker/htpasswd.podcasts
+#           dest: /var/www/htpasswd
+        users:
+          - "{{ adduser }}:{{ adduser_htpasswd }}"
+    previous:
+        image: "ataridude/previous-website:20220110"
+        hostname: "{{ hostname_previous }}"
+    roundcube:
+        image: "roundcube/roundcubemail"
+        hostname: "{{ hostname_roundcube }}"
+        environment:
+            - ROUNDCUBEMAIL_DEFAULT_HOST=ssl://mail.unixdude.net
+            - ROUNDCUBEMAIL_SMTP_SERVER=tls://mail.unixdude.net
+            - ROUNDCUBEMAIL_DB_TYPE=sqlite
+            - ROUNDCUBEMAIL_SKIN=elastic
+        volumes:
+          www:
+            src: /usr/local/docker/roundcube/www
+            dest: /var/www/html
+          db:
+            src: /usr/local/docker/roundcube/db/sqlite
+            dest: /var/roundcube/db
+    sshwifty:
+        image: niruix/sshwifty:latest
+        hostname: sshwifty.unixdude.net
+        environment:
+          - TZ=America/New_York
+          - SSHWIFTY_CONFIG=/etc/sshwifty/sshwifty.conf.json
+        volumes:
+          www:
+            src: /usr/local/docker/sshwifty
+            dest: /etc/sshwifty
+    unixdude:
+        image: "ataridude/unixdude.net:20220215"
+        hostname: "{{ hostname_unixdude_www }}"
+    unixdude_redir:
+        image: "containous/whoami"
+        hostname: "{{ hostname_unixdude_redir }}"
+        redirect: "{{ hostname_unixdude_www }}"
+    watches_redir:
+        image: "containous/whoami"
+        hostname: "watches.unixdude.net"
+        redirect: "{{ hostname_funstuff }}"

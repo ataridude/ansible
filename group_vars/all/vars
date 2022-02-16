@@ -36,7 +36,7 @@ hostname_unixdude_redir: "unixdude.net"
 
 websites:
     atariblog:
-        image: "ataridude/atariblog:latest"
+        image: "ataridude/private/atariblog"
         hostname: "{{ hostname_atariblog }}"
     atari_redir:
         image: "containous/whoami"
@@ -51,10 +51,10 @@ websites:
         hostname: "contacts.unixdude.net"
         redirect: "cloud.unixdude.net/apps/contacts/"
     forsale:
-        image: "ataridude/forsale"
+        image: "ataridude/private:forsale"
         hostname: "{{ hostname_forsale }}"
     funstuff:
-        image: "ataridude/funstuff:20211222"
+        image: "ataridude/private:funstuff"
         hostname: "{{ hostname_funstuff }}"
     kuma:
         image: "louislam/uptime-kuma:1"
@@ -83,7 +83,7 @@ websites:
         hostname: "linuxcrypt.com"
         redirect: "{{ hostname_unixdude_www }}"
     podcasts:
-        image: "ataridude/podcast_server:20220101"
+        image: "ataridude/private:podcast_server"
         hostname: "{{ hostname_podcasts }}"
         volumes:
           Audio:
@@ -95,7 +95,7 @@ websites:
         users:
           - "{{ adduser }}:{{ adduser_htpasswd }}"
     previous:
-        image: "ataridude/previous-website:20220110"
+        image: "ataridude/private:previous-website"
         hostname: "{{ hostname_previous }}"
     roundcube:
         image: "roundcube/roundcubemail"
@@ -112,8 +112,18 @@ websites:
           db:
             src: /usr/local/docker/roundcube/db/sqlite
             dest: /var/roundcube/db
+    sshwifty:
+        image: niruix/sshwifty:latest
+        hostname: sshwifty.unixdude.net
+        environment:
+          - TZ=America/New_York
+          - SSHWIFTY_CONFIG=/etc/sshwifty/sshwifty.conf.json
+        volumes:
+          www:
+            src: /usr/local/docker/sshwifty
+            dest: /etc/sshwifty
     unixdude:
-        image: "ataridude/unixdude.net:20220104"
+        image: "ataridude/private:unixdude.net"
         hostname: "{{ hostname_unixdude_www }}"
     unixdude_redir:
         image: "containous/whoami"
@@ -129,3 +139,6 @@ do_spaces:
         src_url: "https://nyc3.digitaloceanspaces.com/unixdude"
         mount_path: "/mnt/unixdude"
         opts: "defaults,cache=/tmp/unixdude-minfs,uid=1000,gid=1000"
+
+admin_user: "{{ vault_portainer_admin_user }}"
+admin_password: "{{ vault_portainer_admin_password }}"

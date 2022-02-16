@@ -2,8 +2,9 @@
 
 - name: Install common packages
   apt:
-    name: ['screen', 'tcsh', 'mlocate', 'net-tools', 'vim', 'telnet', 'pciutils', 'git', 'mtr', 'traceroute', 'ntp', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'snmpd' ]
+    name: ['screen', 'tcsh', 'mlocate', 'net-tools', 'vim', 'telnet', 'pciutils', 'git', 'mtr', 'traceroute', 'ntp', 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'snmpd', 'wireguard', 'wireguard-tools' ]
     state: latest
+    update_cache: yes
 
 - name: Set default editor
   community.general.alternatives:
@@ -13,7 +14,7 @@
 - name: Set home_dns_fix for home subnets
   set_fact:
     home_dns_fix: "True"
-  when: ansible_default_ipv4.network == "192.168.1.0"
+  when: ansible_default_ipv4.network == "192.168.8.0"
 
 - name: Show home_dns_fix value
   debug:

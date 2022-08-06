@@ -33,10 +33,11 @@ hostname_roundcube: "roundcube-dev.unixdude.net"
 hostname_traefik: "traefik-dev.unixdude.net"
 hostname_unixdude_www: "www-dev.unixdude.net"
 hostname_unixdude_redir: "unixdude.net"
+hostname_campingwonders: "www-dev.campingwonders.com"
 
 websites:
     atariblog:
-        image: "ataridude/private/atariblog"
+        image: "ataridude/private:atariblog"
         hostname: "{{ hostname_atariblog }}"
     atari_redir:
         image: "containous/whoami"
@@ -46,6 +47,9 @@ websites:
         image: "containous/whoami"
         hostname: "calendar.unixdude.net"
         redirect: "cloud.unixdude.net/apps/calendar/"
+    campingwonders:
+        image: "ataridude/private:campingwonders"
+        hostname: "{{ hostname_campingwonders }}"
     contacts_redir:
         image: "containous/whoami"
         hostname: "contacts.unixdude.net"

@@ -10,6 +10,7 @@
   - { role: traefik-website, website: atariblog                     }
   - { role: traefik-website, website: atari_redir                   }
   - { role: traefik-website, website: calendar_redir                }
+  - { role: traefik-website, website: campingwonders                }
   - { role: traefik-website, website: contacts_redir                }
   - { role: traefik-website, website: forsale                       }
   - { role: traefik-website, website: funstuff                      }
@@ -20,5 +21,7 @@
   - { role: traefik-website, website: previous                      }
   - { role: traefik-website, website: roundcube                     }
   - { role: traefik-website, website: unixdude                      }
+  - { role: traefik-website, website: unixdude_redir                }
   - { role: traefik-website, website: watches_redir                 }
+# - { role: portainer                                               }
   become: yes

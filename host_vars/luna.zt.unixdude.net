@@ -3,6 +3,7 @@
 acme_caserver: "{{ acme_caserver_prod }}"
 
 hostname_atariblog: "www.ataridude.net"
+hostname_campingwonders: "www.campingwonders.com"
 hostname_forsale: "forsale.unixdude.net"
 hostname_funstuff: "funstuff.unixdude.net"
 hostname_kuma: "kuma.unixdude.net"
@@ -25,6 +26,9 @@ websites:
         image: "containous/whoami"
         hostname: "calendar.unixdude.net"
         redirect: "cloud.unixdude.net/apps/calendar/"
+    campingwonders:
+        image: "ataridude/campingwonders:20220415"
+        hostname: "{{ hostname_campingwonders }}"
     contacts_redir:
         image: "containous/whoami"
         hostname: "contacts.unixdude.net"
@@ -33,7 +37,7 @@ websites:
         image: "ataridude/forsale"
         hostname: "{{ hostname_forsale }}"
     funstuff:
-        image: "ataridude/funstuff:20211222"
+        image: "ataridude/funstuff:20220406"
         hostname: "{{ hostname_funstuff }}"
     kuma:
         image: "louislam/uptime-kuma:1"
@@ -102,7 +106,7 @@ websites:
             src: /usr/local/docker/sshwifty
             dest: /etc/sshwifty
     unixdude:
-        image: "ataridude/unixdude.net:20220220"
+        image: "ataridude/unixdude.net:20220805"
         hostname: "{{ hostname_unixdude_www }}"
     unixdude_redir:
         image: "containous/whoami"

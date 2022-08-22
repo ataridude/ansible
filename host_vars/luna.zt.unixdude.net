@@ -78,7 +78,7 @@ websites:
         users:
           - "{{ adduser }}:{{ adduser_htpasswd }}"
     previous:
-        image: "ataridude/previous-website:20220110"
+        image: "ataridude/previous-website:20220822"
         hostname: "{{ hostname_previous }}"
     roundcube:
         image: "roundcube/roundcubemail"

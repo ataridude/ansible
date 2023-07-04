@@ -1,0 +1,23 @@
+---
+
+- name: "Ensure required directories exist"
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /usr/local/docker
+    - /usr/local/docker/minecraft
+
+#- name: "Copy minecraft docker-compose file"
+#  copy:
+#    src: docker-compose-minecraft.yml
+#    dest: /usr/local/docker/docker-compose-minecraft.yml
+#    mode: '0644'
+
+#- name: Start minecraft
+#  docker_stack:
+#    state: present
+#    name: minecraft
+#    compose:
+#      - /usr/local/docker/docker-compose-minecraft.yml
+#    with_registry_auth: yes

@@ -1,7 +1,10 @@
 ---
 
-- hosts: kuma_home
+- hosts: docker_host
   roles:
+  - apt-update-upgrade
   - role: common
   - { role: traefik-website, website: kuma, loadbalancer_port: 3001 }
+  - nfs_mounts
+  - minecraft
   become: yes

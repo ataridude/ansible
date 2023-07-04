@@ -7,21 +7,21 @@
   - role: fix_dns_resolver
 # - role: minfs
   - role: traefik-nextcloud
-  - { role: traefik-website, website: atariblog                     }
-  - { role: traefik-website, website: atari_redir                   }
-  - { role: traefik-website, website: calendar_redir                }
-  - { role: traefik-website, website: campingwonders                }
-  - { role: traefik-website, website: contacts_redir                }
-  - { role: traefik-website, website: forsale                       }
-  - { role: traefik-website, website: funstuff                      }
-  - { role: traefik-website, website: kuma, loadbalancer_port: 3001 }
-  - { role: traefik-website, website: linuxcrypt                    }
-  - { role: traefik-website, website: linuxcrypt_www                }
-  - { role: traefik-website, website: podcasts                      }
-  - { role: traefik-website, website: previous                      }
-  - { role: traefik-website, website: roundcube                     }
-  - { role: traefik-website, website: unixdude                      }
-  - { role: traefik-website, website: unixdude_redir                }
-  - { role: traefik-website, website: watches_redir                 }
-# - { role: portainer                                               }
+  - { role: traefik-website, website: atariblog                     , tags: atari}
+  - { role: traefik-website, website: atari_redir                   , tags: atari}
+  - { role: traefik-website, website: calendar_redir                , tags: nextcloud}
+  - { role: traefik-website, website: campingwonders                , tags: campingwonders}
+  - { role: traefik-website, website: contacts_redir                , tags: nextcloud}
+  - { role: traefik-website, website: forsale                       , tags: forsale}
+  - { role: traefik-website, website: funstuff                      , tags: funstuff}
+  - { role: traefik-website, website: kuma, loadbalancer_port: 3001 , tags: kuma}
+  - { role: traefik-website, website: linuxcrypt                    , tags: linuxcrypt}
+  - { role: traefik-website, website: linuxcrypt_www                , tags: linuxcrypt}
+  - { role: traefik-website, website: podcasts                      , tags: podcasts}
+  - { role: traefik-website, website: previous                      , tags: previous}
+  - { role: traefik-website, website: roundcube                     , tags: roundcube}
+  - { role: traefik-website, website: unixdude                      , tags: unixdude}
+  - { role: traefik-website, website: unixdude_redir                , tags: unixdude}
+  - { role: traefik-website, website: watches_redir                 , tags: watches}
+# - { role: portainer                                               , tags: portainer}
   become: yes

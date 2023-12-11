@@ -2,21 +2,22 @@
 
 acme_caserver: "{{ acme_caserver_prod }}"
 
-hostname_atariblog: "www.ataridude.net"
-hostname_campingwonders: "www.campingwonders.com"
-hostname_forsale: "forsale.unixdude.net"
-hostname_funstuff: "funstuff.unixdude.net"
-hostname_kuma: "kuma.unixdude.net"
-hostname_librespeed: "librespeed.unixdude.net"
-hostname_podcasts: "podcasts.unixdude.net"
-hostname_previous: "previous.unixdude.net"
-hostname_roundcube: "roundcube.unixdude.net"
-hostname_traefik: "traefik.unixdude.net"
-hostname_unixdude_www: "www.unixdude.net"
+hostname_atariblog: "www-dev.ataridude.net"
+hostname_campingwonders: "www-dev.campingwonders.com"
+hostname_forsale: "forsale-dev.unixdude.net"
+hostname_funstuff: "funstuff-dev.unixdude.net"
+hostname_kuma: "kuma-dev.unixdude.net"
+hostname_librespeed: "librespeed-dev.unixdude.net"
+hostname_podcasts: "podcasts-dev.unixdude.net"
+hostname_previous: "previous-dev.unixdude.net"
+hostname_roundcube: "roundcube-dev.unixdude.net"
+hostname_traefik: "traefik-dev.unixdude.net"
+hostname_unixdude_www: "www-dev.unixdude.net"
+hostname_ntfy: "ntfy-dev.unixdude.net"
 
 websites:
     atariblog:
-        image: "ataridude/atariblog:latest"
+        image: "ataridude/private:atariblog"
         hostname: "{{ hostname_atariblog }}"
     atari_redir:
         image: "containous/whoami"
@@ -24,20 +25,20 @@ websites:
         redirect: "{{ hostname_atariblog }}"
     calendar_redir:
         image: "containous/whoami"
-        hostname: "calendar.unixdude.net"
+        hostname: "calendar-dev.unixdude.net"
         redirect: "cloud.unixdude.net/apps/calendar/"
     campingwonders:
-        image: "ataridude/campingwonders:20220415"
+        image: "ataridude/private:campingwonders"
         hostname: "{{ hostname_campingwonders }}"
     contacts_redir:
         image: "containous/whoami"
-        hostname: "contacts.unixdude.net"
+        hostname: "contacts-dev.unixdude.net"
         redirect: "cloud.unixdude.net/apps/contacts/"
     forsale:
-        image: "ataridude/forsale"
+        image: "ataridude/private:forsale"
         hostname: "{{ hostname_forsale }}"
     funstuff:
-        image: "ataridude/funstuff:20220406"
+        image: "ataridude/private:funstuff"
         hostname: "{{ hostname_funstuff }}"
     kuma:
         image: "louislam/uptime-kuma:1"
@@ -65,8 +66,20 @@ websites:
         image: "containous/whoami"
         hostname: "linuxcrypt.com"
         redirect: "{{ hostname_unixdude_www }}"
+    ntfy:
+        image: "binwiederhier/ntfy"
+        hostname: "{{ hostname_ntfy }}"
+        volumes:
+            cache:
+                src: /usr/local/docker/ntfy/var_cache_ntfy
+                dest: /var/cache/ntfy
+            etc_ntfy:
+                src: /usr/local/docker/ntfy/etc_ntfy
+                dest: /etc/ntfy
+        environment:
+            - TZ=America/New_York
     podcasts:
-        image: "ataridude/podcast_server:20220101"
+        image: "ataridude/private:podcast_server"
         hostname: "{{ hostname_podcasts }}"
         volumes:
           Audio:
@@ -78,7 +91,7 @@ websites:
         users:
           - "{{ adduser }}:{{ adduser_htpasswd }}"
     previous:
-        image: "ataridude/previous-website:20220822"
+        image: "ataridude/private:previous-website"
         hostname: "{{ hostname_previous }}"
     roundcube:
         image: "roundcube/roundcubemail"
@@ -97,7 +110,7 @@ websites:
             dest: /var/roundcube/db
     sshwifty:
         image: niruix/sshwifty:latest
-        hostname: sshwifty.unixdude.net
+        hostname: sshwifty-dev.unixdude.net
         environment:
           - TZ=America/New_York
           - SSHWIFTY_CONFIG=/etc/sshwifty/sshwifty.conf.json
@@ -106,7 +119,7 @@ websites:
             src: /usr/local/docker/sshwifty
             dest: /etc/sshwifty
     unixdude:
-        image: "ataridude/unixdude.net:20231210"
+        image: "ataridude/private:unixdude.net"
         hostname: "{{ hostname_unixdude_www }}"
     unixdude_redir:
         image: "containous/whoami"
@@ -114,5 +127,5 @@ websites:
         redirect: "{{ hostname_unixdude_www }}"
     watches_redir:
         image: "containous/whoami"
-        hostname: "watches.unixdude.net"
+        hostname: "watches-dev.unixdude.net"
         redirect: "{{ hostname_funstuff }}"

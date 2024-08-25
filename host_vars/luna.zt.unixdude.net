@@ -106,7 +106,7 @@ websites:
             src: /usr/local/docker/sshwifty
             dest: /etc/sshwifty
     unixdude:
-        image: "ataridude/unixdude.net:20240421"
+        image: "ataridude/unixdude.net:20240824"
         hostname: "{{ hostname_unixdude_www }}"
     unixdude_redir:
         image: "containous/whoami"

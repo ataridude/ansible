@@ -1,5 +1,7 @@
 ---
 
+ansible_python_interpreter: "/bin/python3"
+
 acme_caserver: "{{ acme_caserver_prod }}"
 
 hostname_atariblog: "www.ataridude.net"

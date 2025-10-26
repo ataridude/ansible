@@ -11,6 +11,7 @@
   - { role: traefik-website, website: atari_redir                   , tags: atari}
   - { role: traefik-website, website: calendar_redir                , tags: nextcloud}
   - { role: traefik-website, website: campingwonders                , tags: campingwonders}
+  - { role: traefik-website, website: comics                        , tags: comics}
   - { role: traefik-website, website: contacts_redir                , tags: nextcloud}
   - { role: traefik-website, website: forsale                       , tags: forsale}
   - { role: traefik-website, website: funstuff                      , tags: funstuff}

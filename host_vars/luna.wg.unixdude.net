@@ -6,6 +6,7 @@ acme_caserver: "{{ acme_caserver_prod }}"
 
 hostname_atariblog: "www.ataridude.net"
 hostname_campingwonders: "www.campingwonders.com"
+hostname_comics: "comics.unixdude.net"
 hostname_forsale: "forsale.unixdude.net"
 hostname_funstuff: "funstuff.unixdude.net"
 hostname_kuma: "kuma.unixdude.net"
@@ -31,6 +32,15 @@ websites:
     campingwonders:
         image: "ataridude/campingwonders:20220415"
         hostname: "{{ hostname_campingwonders }}"
+    comics:
+        image: "php:8.3-apache"
+        hostname: "{{ hostname_comics }}"
+        volumes:
+          html:
+            src: /usr/local/docker/Comics
+            dest: /var/www/html
+        users:
+          - "{{ adduser }}:{{ adduser_htpasswd }}"
     contacts_redir:
         image: "containous/whoami"
         hostname: "contacts.unixdude.net"
@@ -80,7 +90,7 @@ websites:
         users:
           - "{{ adduser }}:{{ adduser_htpasswd }}"
     previous:
-        image: "ataridude/previous-website:20220822"
+        image: "ataridude/previous-website:20250907"
         hostname: "{{ hostname_previous }}"
     roundcube:
         image: "roundcube/roundcubemail"
@@ -108,7 +118,7 @@ websites:
             src: /usr/local/docker/sshwifty
             dest: /etc/sshwifty
     unixdude:
-        image: "ataridude/unixdude.net:20250824"
+        image: "ataridude/unixdude.net:20250826"
         hostname: "{{ hostname_unixdude_www }}"
     unixdude_redir:
         image: "containous/whoami"

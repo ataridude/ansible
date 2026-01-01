@@ -24,11 +24,11 @@ websites:
     atari_redir:
         image: "containous/whoami"
         hostname: "{{ hostname_atariblog_redir }}"
-        redirect: "{{ hostname_atariblog }}"
+        redirect: "https://{{ hostname_atariblog }}"
     calendar_redir:
         image: "containous/whoami"
         hostname: "calendar.unixdude.net"
-        redirect: "cloud.unixdude.net/apps/calendar/"
+        redirect: "https://cloud.unixdude.net/apps/calendar/"
     campingwonders:
         image: "ataridude/campingwonders:20220415"
         hostname: "{{ hostname_campingwonders }}"
@@ -44,7 +44,7 @@ websites:
     contacts_redir:
         image: "containous/whoami"
         hostname: "contacts.unixdude.net"
-        redirect: "cloud.unixdude.net/apps/contacts/"
+        redirect: "https://cloud.unixdude.net/apps/contacts/"
     forsale:
         image: "ataridude/forsale"
         hostname: "{{ hostname_forsale }}"
@@ -72,11 +72,11 @@ websites:
     linuxcrypt_www:
         image: "containous/whoami"
         hostname: "www.linuxcrypt.com"
-        redirect: "{{ hostname_unixdude_www }}"
+        redirect: "https://{{ hostname_unixdude_www }}"
     linuxcrypt:
         image: "containous/whoami"
         hostname: "linuxcrypt.com"
-        redirect: "{{ hostname_unixdude_www }}"
+        redirect: "https://{{ hostname_unixdude_www }}"
     podcasts:
         image: "ataridude/podcast_server:20220101"
         hostname: "{{ hostname_podcasts }}"
@@ -90,8 +90,10 @@ websites:
         users:
           - "{{ adduser }}:{{ adduser_htpasswd }}"
     previous:
-        image: "ataridude/previous-website:20250907"
+        image: "containous/whoami"
         hostname: "{{ hostname_previous }}"
+        redirect: "http://previous.nextcommunity.net/"
+
     roundcube:
         image: "roundcube/roundcubemail"
         hostname: "{{ hostname_roundcube }}"
@@ -123,8 +125,8 @@ websites:
     unixdude_redir:
         image: "containous/whoami"
         hostname: "{{ hostname_unixdude_redir }}"
-        redirect: "{{ hostname_unixdude_www }}"
+        redirect: "https://{{ hostname_unixdude_www }}"
     watches_redir:
         image: "containous/whoami"
         hostname: "watches.unixdude.net"
-        redirect: "{{ hostname_funstuff }}"
+        redirect: "https://{{ hostname_funstuff }}"

@@ -22,18 +22,18 @@ websites:
     atari_redir:
         image: "containous/whoami"
         hostname: "{{ hostname_atariblog_redir }}"
-        redirect: "{{ hostname_atariblog }}"
+        redirect: "https://{{ hostname_atariblog }}"
     calendar_redir:
         image: "containous/whoami"
         hostname: "calendar-dev.unixdude.net"
-        redirect: "cloud.unixdude.net/apps/calendar/"
+        redirect: "https://cloud.unixdude.net/apps/calendar/"
     campingwonders:
         image: "ataridude/private:campingwonders"
         hostname: "{{ hostname_campingwonders }}"
     contacts_redir:
         image: "containous/whoami"
         hostname: "contacts-dev.unixdude.net"
-        redirect: "cloud.unixdude.net/apps/contacts/"
+        redirect: "https://cloud.unixdude.net/apps/contacts/"
     forsale:
         image: "ataridude/private:forsale"
         hostname: "{{ hostname_forsale }}"
@@ -61,11 +61,11 @@ websites:
     linuxcrypt_www:
         image: "containous/whoami"
         hostname: "www.linuxcrypt.com"
-        redirect: "{{ hostname_unixdude_www }}"
+        redirect: "https://{{ hostname_unixdude_www }}"
     linuxcrypt:
         image: "containous/whoami"
         hostname: "linuxcrypt.com"
-        redirect: "{{ hostname_unixdude_www }}"
+        redirect: "https://{{ hostname_unixdude_www }}"
     ntfy:
         image: "binwiederhier/ntfy"
         hostname: "{{ hostname_ntfy }}"
@@ -124,8 +124,8 @@ websites:
     unixdude_redir:
         image: "containous/whoami"
         hostname: "{{ hostname_unixdude_redir }}"
-        redirect: "{{ hostname_unixdude_www }}"
+        redirect: "https://{{ hostname_unixdude_www }}"
     watches_redir:
         image: "containous/whoami"
         hostname: "watches-dev.unixdude.net"
-        redirect: "{{ hostname_funstuff }}"
+        redirect: "https://{{ hostname_funstuff }}"
